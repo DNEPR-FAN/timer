@@ -1,0 +1,25 @@
+     {foreach from=$postcategory item=post}
+        {include file="./category_sale_loop.tpl" postcategory=$postcategory}
+        <input type="text" value="{$post.sale_time}" id="{$post.id_post}" class="post_info">
+        <input type="text" value="{$post.id_post}" id="{$post.id_post}" class="post_info_id">
+       {literal}
+            <script>
+                $(function () {
+                    var post_length = $('.sdsarticleCat').length;
+                    function counter(){
+                        var month = $('.post_info').val();
+                        var post_id = $('.post_info_id').val();
+                        var austDay = new Date();
+                        austDay = new Date(austDay.getFullYear() + 1, month - 1, 26);
+                        $('.defaultCountdown-'+post_id).countdown({until: austDay});
+                        $('#year').text(austDay.getFullYear());
+                    }
+                    for (var i = 0; i < post_length; i++) {
+                        counter();
+                    }
+                });
+            </script>
+        {/literal}
+        <div class="defaultCountdown-{$post.id_post}"></div>
+        
+    {/foreach}
